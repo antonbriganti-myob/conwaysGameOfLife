@@ -1,5 +1,6 @@
 public class Cell {
     public static final String ALIVE = "alive";
+    public static final String DEAD = "dead";
     String status;
 
     public Cell(String status) {
@@ -7,9 +8,21 @@ public class Cell {
     }
 
     void transform(int neighbourCount){
-        if (neighbourCount == 2 || neighbourCount == 3){
-            this.status = ALIVE;
+        if (isAlive()){
+            if (neighbourCount == 2 || neighbourCount == 3){
+                this.status = ALIVE;
+            }
+            else{
+                this.status = DEAD;
+            }
         }
+        else{
+            if (neighbourCount == 3){
+                this.status = ALIVE;
+            }
+        }
+
+
     }
 
     boolean isAlive(){
