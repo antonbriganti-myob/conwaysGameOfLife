@@ -5,35 +5,35 @@ import static org.junit.jupiter.api.Assertions.*;
 class CellTest {
 
     @Test
-    void cellIsAliveAndHasTwoNeighboursRemainsAlive() {
+    void Cell_AliveAndHasTwoNeighbours_RemainsAlive() {
         Cell cell = new Cell(Cell.ALIVE);
         cell.transform(2);
         assertTrue(cell.isAlive());
     }
 
     @Test
-    void cellIsAliveAndHasFourNeighboursDies() {
+    void Cell_AliveAndHasFourNeighbours_Dies() {
         Cell cell = new Cell(Cell.ALIVE);
         cell.transform(4);
         assertFalse(cell.isAlive());
     }
 
     @Test
-    void cellIsAliveAndHasOneNeighbourDies() {
+    void Cell_AliveAndHasOneNeighbour_Dies() {
         Cell cell = new Cell(Cell.ALIVE);
         cell.transform(1);
         assertFalse(cell.isAlive());
     }
 
     @Test
-    void cellIsDeadAndHasThreeNeighboursComesBackToLife() {
+    void Cell_DeadAndHasThreeNeighbours_BecomesAlive() {
         Cell cell = new Cell(Cell.DEAD);
         cell.transform(3);
         assertTrue(cell.isAlive());
     }
 
     @Test
-    void cellIsDeadAndHasTwoNeighboursRemainsDead() {
+    void Cell_DeadAndHasTwoNeighbours_RemainsDead() {
         Cell cell = new Cell(Cell.DEAD);
         cell.transform(2);
         assertFalse(cell.isAlive());
