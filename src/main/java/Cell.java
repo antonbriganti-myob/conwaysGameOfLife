@@ -1,31 +1,60 @@
-public class Cell {
-    public static final String ALIVE = "alive";
-    public static final String DEAD = "dead";
-    String status;
+enum CellState{
+    ALIVE {
+        public String toString() {
+            return "alive";
+        }
+    },
+    DEAD {
+        public String toString() {
+            return "dead";
+        }
+    }
+}
 
-    public Cell(String status) {
-        this.status = status;
+public class Cell {
+    private CellState currentState;
+    private CellState nextState;
+
+    public Cell(CellState currentState) {
+        this.currentState = currentState;
     }
 
-    void transform(int neighbourCount){
-        if (isAlive()){
-            if (neighbourCount == 2 || neighbourCount == 3){
-                this.status = ALIVE;
+    public CellState getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(CellState currentState) {
+        this.currentState = currentState;
+    }
+
+    CellState determineNextState(int aliveNeighbours){
+        CellState nextState;
+
+        if(isAlive()){
+            if (aliveNeighbours == 2 || aliveNeighbours == 3){
+                nextState = CellState.ALIVE;
             }
             else{
-                this.status = DEAD;
+                nextState = CellState.DEAD;
             }
         }
         else{
-            if (neighbourCount == 3){
-                this.status = ALIVE;
+            if (aliveNeighbours == 3){
+                nextState = CellState.ALIVE;
+            }
+            else{
+                nextState = CellState.DEAD;
             }
         }
 
-
+        return nextState;
     }
 
     boolean isAlive(){
-        return this.status.equals(ALIVE);
+        return this.currentState.equals(CellState.ALIVE);
     }
+
+
+
+
 }

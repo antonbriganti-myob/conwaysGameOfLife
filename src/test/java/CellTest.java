@@ -1,41 +1,47 @@
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class CellTest {
+    private Cell cell;
 
-    @Test
-    void Cell_AliveAndHasTwoNeighbours_RemainsAlive() {
-        Cell cell = new Cell(Cell.ALIVE);
-        cell.transform(2);
-        assertTrue(cell.isAlive());
+    @BeforeEach
+    void setUp() {
+        cell = new Cell(CellState.ALIVE);
     }
 
     @Test
-    void Cell_AliveAndHasFourNeighbours_Dies() {
-        Cell cell = new Cell(Cell.ALIVE);
-        cell.transform(4);
-        assertFalse(cell.isAlive());
+    void Cell_AliveAndHasTwoNeighbours_RemainsAlive() {
+        CellState nextState = cell.determineNextState(2);
+        assertEquals(nextState, CellState.ALIVE);
     }
 
     @Test
     void Cell_AliveAndHasOneNeighbour_Dies() {
-        Cell cell = new Cell(Cell.ALIVE);
-        cell.transform(1);
-        assertFalse(cell.isAlive());
+        CellState nextState = cell.determineNextState(1);
+        assertEquals(nextState, CellState.DEAD);
     }
 
     @Test
+    void Cell_AliveAndHasFourNeighbours_Dies() {
+        CellState nextState = cell.determineNextState(4);
+        assertEquals(nextState, CellState.DEAD);
+    }
+
+
+    @Test
     void Cell_DeadAndHasThreeNeighbours_BecomesAlive() {
-        Cell cell = new Cell(Cell.DEAD);
-        cell.transform(3);
-        assertTrue(cell.isAlive());
+        cell.setCurrentState(CellState.DEAD);
+        CellState nextState = cell.determineNextState(3);
+        assertEquals(nextState, CellState.ALIVE);
     }
 
     @Test
     void Cell_DeadAndHasTwoNeighbours_RemainsDead() {
-        Cell cell = new Cell(Cell.DEAD);
-        cell.transform(2);
-        assertFalse(cell.isAlive());
+        cell.setCurrentState(CellState.DEAD);
+        CellState nextState = cell.determineNextState(2);
+        assertEquals(nextState, CellState.DEAD);
     }
 }
