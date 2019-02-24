@@ -25,7 +25,7 @@ class GridTest {
 
         int neighbours = grid.findAliveNeighbours(1,1);
 
-        assertEquals(8, neighbours);
+        assertEquals(0, neighbours);
     }
 
 }

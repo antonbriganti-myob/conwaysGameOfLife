@@ -1,8 +1,7 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
 
 class CellTest {
     private Cell cell;
@@ -29,7 +28,6 @@ class CellTest {
         CellState nextState = cell.determineNextState(4);
         assertEquals(nextState, CellState.DEAD);
     }
-
 
     @Test
     void Cell_DeadAndHasThreeNeighbours_BecomesAlive() {
