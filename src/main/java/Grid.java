@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Grid {
 
@@ -16,13 +18,40 @@ public class Grid {
     private ArrayList<List<Cell>> createGrid(){
         ArrayList<List<Cell>> grid = new ArrayList<List<Cell>>();
 
-        for(int i = 0; i < rowCount; i++)  {
+        for(int row = 0; row < rowCount; row++)  {
             grid.add(new ArrayList<Cell>());
-            for(int j = 0; j < columnCount; j++)  {
-                grid.get(i).add(new Cell(CellState.ALIVE));
+            for(int col = 0; col < columnCount; col++)  {
+                grid.get(row).add(new Cell(CellState.DEAD));
             }
         }
         return grid;
+    }
+
+    public void updateBoard(){
+        ArrayList<UpdateCellGridCoordinates> cellUpdateList = getCellsToBeUpdated();
+        for(UpdateCellGridCoordinates cellToBeUpdated:cellUpdateList){
+            setCellState(cellToBeUpdated.getRow(), cellToBeUpdated.getCol(), cellToBeUpdated.getNextState());
+        }
+
+    }
+
+    public ArrayList<UpdateCellGridCoordinates> getCellsToBeUpdated() {
+        int neighbours;
+        CellState nextState;
+        ArrayList<UpdateCellGridCoordinates> cellUpdateList = new ArrayList<>();
+
+
+        for(int row = 0; row < rowCount; row++)  {
+            for(int col = 0; col < columnCount; col++)  {
+                neighbours = findAliveNeighbours(row, col);
+                nextState = grid.get(row).get(col).determineNextState(neighbours);
+                if(nextState != grid.get(row).get(col).getCurrentState()){
+                    cellUpdateList.add(new UpdateCellGridCoordinates(row, col, nextState));
+                }
+            }
+        }
+
+        return cellUpdateList;
     }
 
     public int findAliveNeighbours(int cellRow, int cellColumn){
@@ -47,6 +76,47 @@ public class Grid {
 
     private boolean inRange(int row, int column){
         return (0 <= row && row < rowCount) && (0 <= column && column < columnCount);
+    }
+
+    void printListOfLists() {
+        for(int i = 0; i < rowCount; i++)  {
+            System.out.println(grid.get(i));
+        }
+    }
+
+    @Override
+    public String toString() {
+        String result = "";
+        for(int i = 0; i < rowCount; i++)  {
+            result += (grid.get(i)) + "\n";
+        }
+        return result;
+    }
+}
+
+class UpdateCellGridCoordinates{
+    private int row;
+    private int col;
+    private CellState nextState;
+
+    public UpdateCellGridCoordinates(int row, int col, CellState nextState) {
+        this.row = row;
+        this.col = col;
+        this.nextState = nextState;
+    }
+
+
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public CellState getNextState() {
+        return nextState;
     }
 
 

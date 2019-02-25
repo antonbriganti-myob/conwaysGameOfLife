@@ -13,7 +13,6 @@ enum CellState{
 
 public class Cell {
     private CellState currentState;
-    private CellState nextState;
 
     public Cell(CellState currentState) {
         this.currentState = currentState;
@@ -54,7 +53,9 @@ public class Cell {
         return this.currentState.equals(CellState.ALIVE);
     }
 
-
-
-
+    @Override
+    public String toString() {
+        String result = currentState==CellState.ALIVE ? "x" : ".";
+        return result;
+    }
 }
