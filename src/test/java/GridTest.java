@@ -28,9 +28,21 @@ class GridTest {
         actualGrid.setCellState(2, 1, CellState.ALIVE);
         actualGrid.setCellState(2, 2, CellState.ALIVE);
 
+        actualGrid.updateBoard();
         int neighbours = actualGrid.findAliveNeighbours(1,1);
 
         assertEquals(8, neighbours);
+    }
+
+    void foo() {
+        //given
+
+
+        //when
+
+
+        //then
+
     }
 
     @Test
@@ -47,44 +59,6 @@ class GridTest {
         int neighbours = actualGrid.findAliveNeighbours(1,1);
 
         assertEquals(0, neighbours);
-    }
-
-    @Test
-    void Grid_GetCellsToBeUpdated_ReturnsCorrectCells() {
-        /*
-         *
-         *   Base          Next
-         *   . . . . .       . . . . .
-         *   . . . . .       . x . . .
-         *   x x x . .  ->   x . x . .
-         *   x x x . .       . . . x .
-         *   x x x . .       x . x . .
-         *
-         * */
-
-        actualGrid.setCellState(2, 0, CellState.ALIVE);
-        actualGrid.setCellState(2, 1, CellState.ALIVE);
-        actualGrid.setCellState(2, 2, CellState.ALIVE);
-        actualGrid.setCellState(3,0, CellState.ALIVE);
-        actualGrid.setCellState(3,1, CellState.ALIVE);
-        actualGrid.setCellState(3,2, CellState.ALIVE);
-        actualGrid.setCellState(4,0, CellState.ALIVE);
-        actualGrid.setCellState(4,1, CellState.ALIVE);
-        actualGrid.setCellState(4,2, CellState.ALIVE);
-
-        ArrayList<UpdateCellGridCoordinates> expectedList = new ArrayList<>();
-        expectedList.add(new UpdateCellGridCoordinates(1, 1, CellState.ALIVE));
-        expectedList.add(new UpdateCellGridCoordinates(2, 1, CellState.DEAD));
-        expectedList.add(new UpdateCellGridCoordinates(3, 0, CellState.ALIVE));
-        expectedList.add(new UpdateCellGridCoordinates(3, 1, CellState.ALIVE));
-        expectedList.add(new UpdateCellGridCoordinates(3, 2, CellState.ALIVE));
-        expectedList.add(new UpdateCellGridCoordinates(3, 3, CellState.ALIVE));
-        expectedList.add(new UpdateCellGridCoordinates(4, 1, CellState.ALIVE));
-
-
-        ArrayList<UpdateCellGridCoordinates> actualList = actualGrid.getCellsToBeUpdated();
-
-        assertTrue(EqualsBuilder.reflectionEquals(expectedList, actualList));
     }
 
     @Test
@@ -120,7 +94,7 @@ class GridTest {
 
         actualGrid.updateBoard();
 
-        assertEquals(actualGrid.toString(), expectedGrid.toString());
+        assertEquals(expectedGrid.toString(), actualGrid.toString());
     }
 
 }

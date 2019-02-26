@@ -61,6 +61,9 @@ public class Cell {
     boolean isAlive(){
         return this.currentState.equals(CellState.ALIVE);
     }
+    boolean wasAlive(){
+        return this.lastState.equals(CellState.ALIVE);
+    }
 
     @Override
     public String toString() {
