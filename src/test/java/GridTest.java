@@ -28,7 +28,6 @@ class GridTest {
         actualGrid.setCellState(2, 1, CellState.ALIVE);
         actualGrid.setCellState(2, 2, CellState.ALIVE);
 
-        actualGrid.updateBoard();
         int neighbours = actualGrid.findAliveNeighbours(1,1);
 
         assertEquals(8, neighbours);

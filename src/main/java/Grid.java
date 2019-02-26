@@ -31,9 +31,14 @@ public class Grid {
 
         for(int row = 0; row < rowCount; row++)  {
             for(int col = 0; col < columnCount; col++)  {
+                grid.get(row).get(col).setTransformed(false);
                 neighbours = findAliveNeighbours(row, col);
                 nextState = grid.get(row).get(col).determineNextState(neighbours);
-                grid.get(row).get(col).updateCurrentState(nextState);
+                if (nextState != grid.get(row).get(col).getCurrentState()){
+                    grid.get(row).get(col).updateCurrentState(nextState);
+                    grid.get(row).get(col).setTransformed(true);
+                }
+
             }
         }
 
@@ -45,19 +50,11 @@ public class Grid {
         for(int row = cellRow-1; row<=cellRow+1; row++){
 
             for(int col = cellColumn-1; col<=cellColumn+1; col++){
-
                 if (inRange(row, col) && !(row == cellRow & col==cellColumn)){
-                    if (cellAlreadyUpdated(cellRow, cellColumn, row, col)){
-                        if (grid.get(row).get(col).wasAlive()){
-                            count+=1;
-                        }
+                    boolean cellIsAlive = grid.get(row).get(col).isTransformed() != grid.get(row).get(col).isAlive();
+                    if(cellIsAlive){
+                        count++;
                     }
-                    else{
-                        if (grid.get(row).get(col).isAlive()){
-                            count+=1;
-                        }
-                    }
-
                 }
             }
         }
@@ -74,9 +71,6 @@ public class Grid {
         return (0 <= row && row < rowCount) && (0 <= column && column < columnCount);
     }
 
-    private boolean cellAlreadyUpdated(int myRow, int myCol, int targetRow, int targetCol){
-        return (targetRow < myRow) || (targetRow == myRow & targetCol < myCol);
-    }
 
     @Override
     public String toString() {

@@ -13,27 +13,34 @@ enum CellState{
 
 public class Cell {
     private CellState currentState;
-    private CellState lastState;
+    private boolean transformed;
 
 
     public Cell(CellState currentState) {
         this.currentState = currentState;
-        this.lastState = currentState;
+        transformed = false;
     }
 
     public CellState getCurrentState() {
         return currentState;
     }
 
-    public void updateCurrentState(CellState currentState) {
-        this.lastState = this.currentState;
+    public void setCurrentState(CellState currentState) {
         this.currentState = currentState;
-
     }
 
-    public CellState getLastState() {
-        return lastState;
+    public boolean isTransformed() {
+        return transformed;
     }
+
+    public void setTransformed(boolean transformed) {
+        this.transformed = transformed;
+    }
+
+    public void updateCurrentState(CellState nextState) {
+        this.currentState = nextState;
+    }
+
 
     CellState determineNextState(int aliveNeighbours){
         CellState nextState;
@@ -59,12 +66,9 @@ public class Cell {
     }
 
     boolean isAlive(){
+//        !transformed ? this.currentState.equals(CellState.ALIVE) : !this.currentState.equals(CellState.ALIVE);
         return this.currentState.equals(CellState.ALIVE);
     }
-    boolean wasAlive(){
-        return this.lastState.equals(CellState.ALIVE);
-    }
-
     @Override
     public String toString() {
         String result = currentState==CellState.ALIVE ? "x" : ".";
