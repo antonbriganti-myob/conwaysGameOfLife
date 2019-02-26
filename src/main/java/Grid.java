@@ -1,7 +1,5 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Grid {
 
@@ -70,18 +68,12 @@ public class Grid {
 
     public void setCellState(int row, int column, CellState nextState){
         if (inRange(row, column)){
-            grid.get(row).get(column).setCurrentState(nextState);
+            grid.get(row).get(column).updateCurrentState(nextState);
         }
     }
 
     private boolean inRange(int row, int column){
         return (0 <= row && row < rowCount) && (0 <= column && column < columnCount);
-    }
-
-    void printListOfLists() {
-        for(int i = 0; i < rowCount; i++)  {
-            System.out.println(grid.get(i));
-        }
     }
 
     @Override
@@ -104,7 +96,6 @@ class UpdateCellGridCoordinates{
         this.col = col;
         this.nextState = nextState;
     }
-
 
 
     public int getRow() {

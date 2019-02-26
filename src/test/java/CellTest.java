@@ -31,14 +31,14 @@ class CellTest {
 
     @Test
     void Cell_DeadAndHasThreeNeighbours_BecomesAlive() {
-        cell.setCurrentState(CellState.DEAD);
+        cell.updateCurrentState(CellState.DEAD);
         CellState nextState = cell.determineNextState(3);
         assertEquals(nextState, CellState.ALIVE);
     }
 
     @Test
     void Cell_DeadAndHasTwoNeighbours_RemainsDead() {
-        cell.setCurrentState(CellState.DEAD);
+        cell.updateCurrentState(CellState.DEAD);
         CellState nextState = cell.determineNextState(2);
         assertEquals(nextState, CellState.DEAD);
     }

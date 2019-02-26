@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,14 +35,14 @@ class GridTest {
 
     @Test
     void Grid_FindAliveNeighbours_ReturnsNoAliveCount() {
-        actualGrid.setCellState(0,0, CellState.DEAD);
-        actualGrid.setCellState(0,1, CellState.DEAD);
-        actualGrid.setCellState(0,2, CellState.DEAD);
-        actualGrid.setCellState(1,0, CellState.DEAD);
-        actualGrid.setCellState(1,2, CellState.DEAD);
-        actualGrid.setCellState(2, 0, CellState.DEAD);
-        actualGrid.setCellState(2, 1, CellState.DEAD);
-        actualGrid.setCellState(2, 2, CellState.DEAD);
+//        actualGrid.setCellState(0,0, CellState.DEAD);
+//        actualGrid.setCellState(0,1, CellState.DEAD);
+//        actualGrid.setCellState(0,2, CellState.DEAD);
+//        actualGrid.setCellState(1,0, CellState.DEAD);
+//        actualGrid.setCellState(1,2, CellState.DEAD);
+//        actualGrid.setCellState(2, 0, CellState.DEAD);
+//        actualGrid.setCellState(2, 1, CellState.DEAD);
+//        actualGrid.setCellState(2, 2, CellState.DEAD);
 
         int neighbours = actualGrid.findAliveNeighbours(1,1);
 
@@ -119,11 +120,6 @@ class GridTest {
 
         actualGrid.updateBoard();
 
-        actualGrid.printListOfLists();
-        System.out.println();
-        expectedGrid.printListOfLists();
-
-//        assertTrue(EqualsBuilder.reflectionEquals(expectedGrid, actualGrid));
         assertEquals(actualGrid.toString(), expectedGrid.toString());
     }
 

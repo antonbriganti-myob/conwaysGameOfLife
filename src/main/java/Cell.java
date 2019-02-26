@@ -13,17 +13,26 @@ enum CellState{
 
 public class Cell {
     private CellState currentState;
+    private CellState lastState;
+
 
     public Cell(CellState currentState) {
         this.currentState = currentState;
+        this.lastState = currentState;
     }
 
     public CellState getCurrentState() {
         return currentState;
     }
 
-    public void setCurrentState(CellState currentState) {
+    public void updateCurrentState(CellState currentState) {
+        this.lastState = this.currentState;
         this.currentState = currentState;
+
+    }
+
+    public CellState getLastState() {
+        return lastState;
     }
 
     CellState determineNextState(int aliveNeighbours){
