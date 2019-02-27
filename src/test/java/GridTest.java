@@ -1,11 +1,5 @@
-import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -77,7 +71,7 @@ class GridTest {
         expectedGrid.setCellState(4,0, CellState.ALIVE);
         expectedGrid.setCellState(4,2, CellState.ALIVE);
 
-        actualGrid.updateBoard();
+        actualGrid.updateGrid();
 
         assertEquals(expectedGrid.toString(), actualGrid.toString());
     }

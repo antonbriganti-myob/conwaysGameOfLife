@@ -25,7 +25,7 @@ public class Grid {
         return grid;
     }
 
-    public void updateBoard(){
+    public void updateGrid(){
         int neighbours;
         CellState nextState;
 
