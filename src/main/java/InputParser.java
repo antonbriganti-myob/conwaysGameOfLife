@@ -31,13 +31,17 @@ public class InputParser {
         int dimension = 0;
         boolean validDimension = false;
 
-        System.out.print("Enter " + targetDimension + " size: ");
+        System.out.print("Enter " + targetDimension + " size (greater than 0): ");
 
         while(!validDimension){
             try{
                 String input = scanner.nextLine();
                 dimension = Integer.valueOf(input);
-                validDimension = true;
+                validDimension = (dimension > 0);
+
+                if(!validDimension){
+                    System.out.println("Please enter a number greater than 0");
+                }
 
             }
             catch (NumberFormatException e){
@@ -46,15 +50,6 @@ public class InputParser {
         }
 
         return dimension;
-    }
-
-    GridCoordinates getGridCoordinateToUpdate(int rowSize, int colSize){
-        System.out.println("\nChoose what Cell you want to change to be alive");
-        int row = getSingleCoordinate(rowSize, "row");
-        int col = getSingleCoordinate(colSize, "column");
-
-        return new GridCoordinates(row, col);
-
     }
 
     GridCoordinates getGridCoordinates(int rowSize, int colSize){
@@ -92,30 +87,4 @@ public class InputParser {
 
     }
 
-
-    int getSingleCoordinate(int limit, String type){
-        int coordinate = 0;
-        boolean validCoordinate = false;
-
-
-        while(!validCoordinate){
-            System.out.println("\nEnter " + type + " coordinate");
-            System.out.print("Valid values are 0 to " + (limit-1) + " (inclusive): ");
-
-            try{
-                String input = scanner.nextLine();
-                coordinate = Integer.valueOf(input);
-                validCoordinate = ((coordinate>=0)&(coordinate < limit));
-                if (!validCoordinate){
-                    System.out.println("Out of range, please enter coordinate again");
-                }
-
-            }
-            catch (NumberFormatException e){
-                System.out.println("Invalid input, please enter coordinate again.");
-            }
-        }
-
-        return coordinate;
-    }
 }

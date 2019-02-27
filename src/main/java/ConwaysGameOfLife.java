@@ -1,9 +1,11 @@
+import java.util.Random;
+
 public class ConwaysGameOfLife {
     private Grid world;
     private InputParser parser;
 
     public ConwaysGameOfLife() {
-        InputParser parser = new InputParser();
+        parser = new InputParser();
     }
 
     void playGame(){
@@ -21,6 +23,11 @@ public class ConwaysGameOfLife {
         world = new Grid(rowSize, colSize);
         printWorld();
 
+        if (parser.getUserBooleanDecision("Would you like to randomise the board?")){
+            randomiseWorld();
+            printWorld();
+        }
+
         while(parser.getUserBooleanDecision("Do you want change a cell to alive?")){
             gridCoord = parser.getGridCoordinates(rowSize, colSize);
             world.setCellState(gridCoord, CellState.ALIVE);
@@ -33,6 +40,22 @@ public class ConwaysGameOfLife {
             world.updateGrid();
             printWorld();
         }
+    }
+
+    private void randomiseWorld(){
+        int row;
+        int col;
+        Random randomNumberGenerator = new Random();
+
+        int numberOfCellsToRandom = randomNumberGenerator.nextInt(world.getRowCount() * world.getColumnCount());
+        System.out.println(numberOfCellsToRandom);
+
+        for(int cell = 0; cell <= numberOfCellsToRandom; cell++){
+            row = randomNumberGenerator.nextInt(world.getRowCount());
+            col = randomNumberGenerator.nextInt(world.getColumnCount());
+            world.setCellState(row, col, CellState.ALIVE);
+        }
+
     }
 
     private void printWorld(){

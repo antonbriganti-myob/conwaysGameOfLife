@@ -13,6 +13,14 @@ public class Grid {
         this.grid = createGrid();
     }
 
+    public int getRowCount() {
+        return rowCount;
+    }
+
+    public int getColumnCount() {
+        return columnCount;
+    }
+
     private ArrayList<List<Cell>> createGrid(){
         ArrayList<List<Cell>> grid = new ArrayList<List<Cell>>();
 
@@ -84,10 +92,10 @@ public class Grid {
 
     @Override
     public String toString() {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for(int i = 0; i < rowCount; i++)  {
-            result += (grid.get(i)) + "\n";
+            result.append((grid.get(i))).append("\n");
         }
-        return result;
+        return result.toString();
     }
 }
