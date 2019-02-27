@@ -66,12 +66,11 @@ public class Cell {
     }
 
     boolean isAlive(){
-//        !transformed ? this.currentState.equals(CellState.ALIVE) : !this.currentState.equals(CellState.ALIVE);
         return this.currentState.equals(CellState.ALIVE);
     }
+
     @Override
     public String toString() {
-        String result = currentState==CellState.ALIVE ? "x" : ".";
-        return result;
+        return currentState==CellState.ALIVE ? "x" : ".";
     }
 }

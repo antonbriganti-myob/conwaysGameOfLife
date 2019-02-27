@@ -28,36 +28,22 @@ class GridTest {
         actualGrid.setCellState(2, 1, CellState.ALIVE);
         actualGrid.setCellState(2, 2, CellState.ALIVE);
 
-        int neighbours = actualGrid.findAliveNeighbours(1,1);
+        int expectedNeighbours = 8;
+        int actualNeighbours = actualGrid.findAliveNeighbours(1,1);
 
-        assertEquals(8, neighbours);
+
+        assertEquals(expectedNeighbours, actualNeighbours);
     }
 
-    void foo() {
-        //given
-
-
-        //when
-
-
-        //then
-
-    }
 
     @Test
     void Grid_FindAliveNeighbours_ReturnsNoAliveCount() {
-//        actualGrid.setCellState(0,0, CellState.DEAD);
-//        actualGrid.setCellState(0,1, CellState.DEAD);
-//        actualGrid.setCellState(0,2, CellState.DEAD);
-//        actualGrid.setCellState(1,0, CellState.DEAD);
-//        actualGrid.setCellState(1,2, CellState.DEAD);
-//        actualGrid.setCellState(2, 0, CellState.DEAD);
-//        actualGrid.setCellState(2, 1, CellState.DEAD);
-//        actualGrid.setCellState(2, 2, CellState.DEAD);
+        //grid is initialised as all dead, so no setup required
 
-        int neighbours = actualGrid.findAliveNeighbours(1,1);
+        int expectedNeighbours = 0;
+        int actualNeighbours = actualGrid.findAliveNeighbours(1,1);
 
-        assertEquals(0, neighbours);
+        assertEquals(expectedNeighbours, actualNeighbours);
     }
 
     @Test

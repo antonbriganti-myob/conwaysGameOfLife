@@ -31,9 +31,12 @@ public class Grid {
 
         for(int row = 0; row < rowCount; row++)  {
             for(int col = 0; col < columnCount; col++)  {
+
                 grid.get(row).get(col).setTransformed(false);
+
                 neighbours = findAliveNeighbours(row, col);
                 nextState = grid.get(row).get(col).determineNextState(neighbours);
+
                 if (nextState != grid.get(row).get(col).getCurrentState()){
                     grid.get(row).get(col).updateCurrentState(nextState);
                     grid.get(row).get(col).setTransformed(true);
@@ -47,6 +50,7 @@ public class Grid {
 
     public int findAliveNeighbours(int cellRow, int cellColumn){
         int count = 0;
+
         for(int row = cellRow-1; row<=cellRow+1; row++){
 
             for(int col = cellColumn-1; col<=cellColumn+1; col++){
@@ -66,6 +70,12 @@ public class Grid {
             grid.get(row).get(column).updateCurrentState(nextState);
         }
     }
+
+    public void setCellState(GridCoordinates gridCoordinate, CellState nextState){
+        setCellState(gridCoordinate.getRow(), gridCoordinate.getCol(), nextState);
+    }
+
+
 
     private boolean inRange(int row, int column){
         return (0 <= row && row < rowCount) && (0 <= column && column < columnCount);
