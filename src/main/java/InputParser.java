@@ -11,20 +11,32 @@ public class InputParser {
         System.out.print(message +  " ('yes' or 'no'): ");
 
         while(!validInput){
-            try{
-                input = scanner.nextLine();
-                validInput = (input.equals("yes")||input.equals("no"));
-                if (!validInput){
-                    System.out.println("That wasn't 'yes' or 'no'.");
-                }
-
-            }
-            catch (NumberFormatException e){
-                System.out.println("Invalid input, please enter dimension again: ");
+            input = scanner.nextLine().toLowerCase();
+            validInput = (input.equals("yes")||input.equals("no")||input.equals("y")||input.equals("n"));
+            if (!validInput){
+                System.out.println("That wasn't 'yes' or 'no'.");
             }
         }
 
-        return input.equals("yes");
+        return (input.substring(0, 1).equals("y"));
+    }
+
+    CellState getCellStateChoice(){
+        boolean validInput = false;
+        String input = "";
+
+        System.out.print("What state do you want to set the cell to? ('alive' or 'dead'): ");
+
+        while(!validInput){
+            input = scanner.nextLine().toLowerCase();
+            validInput = (input.equals("alive")||input.equals("dead"));
+            if (!validInput){
+                System.out.println("Please choose alive or dead");
+            }
+
+        }
+
+        return input.equals("alive") ? CellState.ALIVE : CellState.DEAD;
     }
 
     int getGridDimension(String targetDimension) {
