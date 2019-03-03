@@ -13,6 +13,8 @@ class GridTest {
 
     @Test
     void Grid_FindAliveNeighbours_ReturnsCorrectNeighbourCount() {
+        Grid actualGrid = new Grid(5,5);
+
         actualGrid.setCellState(0,0, CellState.ALIVE);
         actualGrid.setCellState(0,1, CellState.ALIVE);
         actualGrid.setCellState(0,2, CellState.ALIVE);
