@@ -2,7 +2,13 @@ import java.util.Scanner;
 
 public class InputParser {
 
-    private Scanner scanner = new Scanner(System.in);
+    private Scanner scanner;
+    private InputValidator validator;
+
+    public InputParser() {
+        scanner = new Scanner(System.in);
+        validator = new InputValidator();
+    }
 
     boolean getUserBooleanDecision(String message){
         boolean validInput = false;
@@ -12,7 +18,7 @@ public class InputParser {
 
         while(!validInput){
             input = scanner.nextLine().toLowerCase();
-            validInput = (input.equals("yes")||input.equals("no")||input.equals("y")||input.equals("n"));
+            validInput = validator.isValidBooleanAnswer(input);
             if (!validInput){
                 System.out.println("That wasn't 'yes' or 'no'.");
             }
@@ -20,6 +26,8 @@ public class InputParser {
 
         return (input.substring(0, 1).equals("y"));
     }
+
+
 
     CellState getCellStateChoice(){
         boolean validInput = false;
@@ -29,7 +37,7 @@ public class InputParser {
 
         while(!validInput){
             input = scanner.nextLine().toLowerCase();
-            validInput = (input.equals("alive")||input.equals("dead"));
+            validInput = validator.isValidCellStateAnswer(input);
             if (!validInput){
                 System.out.println("Please choose alive or dead");
             }
@@ -38,6 +46,8 @@ public class InputParser {
 
         return input.equals("alive") ? CellState.ALIVE : CellState.DEAD;
     }
+
+
 
     int getGridDimension(String targetDimension) {
         int dimension = 0;
@@ -49,7 +59,7 @@ public class InputParser {
             try{
                 String input = scanner.nextLine();
                 dimension = Integer.valueOf(input);
-                validDimension = (dimension > 0);
+                validDimension = validator.isValidDimension(dimension);
 
                 if(!validDimension){
                     System.out.println("Please enter a number greater than 0");
@@ -64,10 +74,10 @@ public class InputParser {
         return dimension;
     }
 
+
+
     GridCoordinates getGridCoordinates(int rowSize, int colSize){
         boolean validCoordinate = false;
-        boolean validRow;
-        boolean validCol;
         int row = 0;
         int col = 0;
 
@@ -81,9 +91,7 @@ public class InputParser {
                 row = Integer.valueOf(input[0]);
                 col = Integer.valueOf(input[1]);
 
-                validRow = ((row>=0)&(row < rowSize));
-                validCol = ((col>=0)&(col < colSize));
-                validCoordinate = validCol&&validRow;
+                validCoordinate = validator.isValidCoordinate(row, col, rowSize, colSize);
 
                 if (!validCoordinate){
                     System.out.println("Out of range, please enter coordinate again");
@@ -98,5 +106,7 @@ public class InputParser {
         return new GridCoordinates(row, col);
 
     }
+
+
 
 }
