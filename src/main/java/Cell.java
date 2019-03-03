@@ -25,10 +25,6 @@ public class Cell {
         return currentState;
     }
 
-    public void setCurrentState(CellState currentState) {
-        this.currentState = currentState;
-    }
-
     public boolean isTransformed() {
         return transformed;
     }
