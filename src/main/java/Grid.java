@@ -95,6 +95,9 @@ public class Grid {
         for(int i = 0; i < rowCount; i++)  {
             result.append((grid.get(i))).append("\n");
         }
-        return result.toString();
+        return result.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(",", "");
     }
 }
