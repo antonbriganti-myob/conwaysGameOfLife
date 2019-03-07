@@ -26,9 +26,11 @@ public class Grid {
 
         for(int row = 0; row < rowCount; row++)  {
             grid.add(new ArrayList<Cell>());
+
             for(int col = 0; col < columnCount; col++)  {
                 grid.get(row).add(new Cell(CellState.DEAD));
             }
+
         }
         return grid;
     }
@@ -57,19 +59,37 @@ public class Grid {
 
     public int findAliveNeighbours(int cellRow, int cellColumn){
         int count = 0;
+        GridCoordinates wrapAroundCoord;
+        boolean cellIsAlive;
 
         for(int row = cellRow-1; row<=cellRow+1; row++){
-
             for(int col = cellColumn-1; col<=cellColumn+1; col++){
-                if (inRange(row, col) && !(row == cellRow & col==cellColumn)){
-                    boolean cellIsAlive = grid.get(row).get(col).isTransformed() != grid.get(row).get(col).isAlive();
+                if (!(row == cellRow & col==cellColumn)){
+                    if(inRange(row, col)){
+                        cellIsAlive = checkIfCellIsCurrentlyAlive(row, col);
+
+                    }
+                    else{
+                        wrapAroundCoord = determineWrapAroundCoordinate(row, col);
+                        cellIsAlive = checkIfCellIsCurrentlyAlive(wrapAroundCoord);
+                    }
+
                     if(cellIsAlive){
                         count++;
                     }
+
                 }
             }
         }
         return count;
+    }
+
+    boolean checkIfCellIsCurrentlyAlive(int row, int col) {
+        return grid.get(row).get(col).isTransformed() != grid.get(row).get(col).isAlive();
+    }
+
+    boolean checkIfCellIsCurrentlyAlive(GridCoordinates coordinates) {
+        return checkIfCellIsCurrentlyAlive(coordinates.getRow(), coordinates.getCol());
     }
 
     public void setCellState(int row, int column, CellState nextState){
@@ -82,10 +102,29 @@ public class Grid {
         setCellState(gridCoordinate.getRow(), gridCoordinate.getCol(), nextState);
     }
 
-
-
     private boolean inRange(int row, int column){
         return (0 <= row && row < rowCount) && (0 <= column && column < columnCount);
+    }
+
+    private GridCoordinates determineWrapAroundCoordinate(int row, int column){
+        int newRow = row;
+        int newCol = column;
+
+        if(row >= rowCount){
+            newRow = 0;
+        }
+        else if(row < 0){
+            newRow = rowCount-1;
+        }
+
+        if(column >= columnCount){
+            newCol = 0;
+        }
+        else if(column < 0){
+            newCol = columnCount-1;
+        }
+
+        return new GridCoordinates(newRow, newCol);
     }
 
 

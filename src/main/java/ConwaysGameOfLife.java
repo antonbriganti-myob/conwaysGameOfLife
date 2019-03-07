@@ -21,8 +21,10 @@ public class ConwaysGameOfLife {
         else{
             System.out.println("Fair enough, creating a new world");
             createWorld();
+
         }
 
+        customiseWorld();
         simulateWorld();
 
         if (parser.getUserBooleanDecision("Would you like to save the state of the world?")){
@@ -52,12 +54,15 @@ public class ConwaysGameOfLife {
             printWorld();
         }
 
-        customiseWorld(rowSize, colSize);
+        customiseWorld();
     }
 
-    private void customiseWorld(int rowSize, int colSize) {
+    private void customiseWorld() {
         GridCoordinates gridCoord;
         CellState cellState;
+
+        int rowSize = world.getRowCount();
+        int colSize = world.getColumnCount();
 
         while(parser.getUserBooleanDecision("Do you want update a cell?")){
             gridCoord = parser.getGridCoordinates(rowSize, colSize);
