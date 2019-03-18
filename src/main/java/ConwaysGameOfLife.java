@@ -13,13 +13,16 @@ public class ConwaysGameOfLife {
     }
 
     void playGame(){
+        boolean worldLoaded = false;
         showOpeningMessage();
 
         if (parser.getUserBooleanDecision("Would you like to load the state of the world?")){
-            loadWorld();
+            worldLoaded = loadWorld();
         }
-        else{
-            System.out.println("Fair enough, creating a new world");
+
+        if (!worldLoaded)
+        {
+            System.out.println("World was not loaded, creating");
             createWorld();
 
         }
@@ -86,7 +89,7 @@ public class ConwaysGameOfLife {
 
         int numberOfCellsToRandom = randomNumberGenerator.nextInt(world.getRowCount() * world.getColumnCount());
 
-        for(int cell = 0; cell <= numberOfCellsToRandom; cell++){
+        for(int cell = 0; cell < numberOfCellsToRandom; cell++){
             row = randomNumberGenerator.nextInt(world.getRowCount());
             col = randomNumberGenerator.nextInt(world.getColumnCount());
             world.setCellState(row, col, CellState.ALIVE);
@@ -115,7 +118,8 @@ public class ConwaysGameOfLife {
 
     }
 
-    private void loadWorld(){
+    private boolean loadWorld(){
+        boolean loadSuccessful;
         CellState cellState;
         String[] row;
         int currentRow = 0;
@@ -138,11 +142,15 @@ public class ConwaysGameOfLife {
                 currentRow++;
             }
 
+            loadSuccessful = true;
 
         }
         catch (FileNotFoundException e){
             System.out.println("Error, unable to load file. Load failed!");
+            loadSuccessful = false;
         }
+
+        return loadSuccessful;
     }
 
     private void printWorld(){
