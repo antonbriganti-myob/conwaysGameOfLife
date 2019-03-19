@@ -13,25 +13,24 @@ public class ConwaysGameOfLife {
     }
 
     void playGame(){
-        boolean worldLoaded = false;
+        BoardPersistance boardPersistance = new BoardPersistance();
         showOpeningMessage();
 
         if (parser.getUserBooleanDecision("Would you like to load the state of the world?")){
-            worldLoaded = loadWorld();
+            world = boardPersistance.loadWorld();
         }
 
-        if (!worldLoaded)
+        if (!boardPersistance.isLoadSuccessful())
         {
             System.out.println("World was not loaded, creating");
             createWorld();
-
         }
 
         customiseWorld();
         simulateWorld();
 
         if (parser.getUserBooleanDecision("Would you like to save the state of the world?")){
-            saveWorld();
+            boardPersistance.saveWorld(world);
         }
     }
 
@@ -95,62 +94,6 @@ public class ConwaysGameOfLife {
             world.setCellState(row, col, CellState.ALIVE);
         }
 
-    }
-
-    boolean saveWorld(){
-        boolean saveSuccessful = true;
-
-        File file = new File("./other/save");
-        file.getParentFile().mkdirs();
-
-        String worldState = world.toString();
-        try (PrintWriter out = new PrintWriter(file)) {
-            out.println(world.getRowCount() + "," + world.getColumnCount());
-            out.print(worldState);
-            System.out.println("Saved!");
-
-        }
-        catch (FileNotFoundException e){
-            System.out.println("Error, unable to save to file. Save failed!");
-            saveSuccessful = false;
-        }
-        return saveSuccessful;
-
-    }
-
-    private boolean loadWorld(){
-        boolean loadSuccessful;
-        CellState cellState;
-        String[] row;
-        int currentRow = 0;
-
-        File file = new File("./other/save");
-
-        try (Scanner sc = new Scanner(file)) {
-            String[] rowAndCol = sc.nextLine().split(",");
-            int rowCount = Integer.valueOf(rowAndCol[0]);
-            int colCount = Integer.valueOf(rowAndCol[1]);
-
-            world = new Grid(rowCount, colCount);
-
-            while (sc.hasNextLine()){
-                row = sc.nextLine().split(" ");
-                for(int currentCol=0; currentCol < colCount; currentCol++){
-                    cellState = row[currentCol].equals("x") ? CellState.ALIVE : CellState.DEAD;
-                    world.setCellState(currentRow, currentCol, cellState);
-                }
-                currentRow++;
-            }
-
-            loadSuccessful = true;
-
-        }
-        catch (FileNotFoundException e){
-            System.out.println("Error, unable to load file. Load failed!");
-            loadSuccessful = false;
-        }
-
-        return loadSuccessful;
     }
 
     private void printWorld(){
