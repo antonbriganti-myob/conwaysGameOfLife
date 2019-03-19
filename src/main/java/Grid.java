@@ -92,6 +92,15 @@ public class Grid {
         return checkIfCellIsCurrentlyAlive(coordinates.getRow(), coordinates.getCol());
     }
 
+    public CellState getCellState(int row, int column){
+        if (inRange(row, column)){
+            return grid.get(row).get(column).getCurrentState();
+        }
+        else{
+            return null;
+        }
+    }
+
     public void setCellState(int row, int column, CellState nextState){
         if (inRange(row, column)){
             grid.get(row).get(column).updateCurrentState(nextState);

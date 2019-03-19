@@ -57,7 +57,7 @@ public class ConwaysGameOfLife {
             printWorld();
         }
 
-        customiseWorld();
+//        customiseWorld();
     }
 
     private void customiseWorld() {
