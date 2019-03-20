@@ -7,17 +7,9 @@ import java.util.Scanner;
 
 public class BoardPersistance {
 
-    private boolean loadSuccessful;
+    public static boolean loadSuccessful;
 
-    public boolean isLoadSuccessful() {
-        return loadSuccessful;
-    }
-
-    public void setLoadSuccessful(boolean loadSuccessful) {
-        this.loadSuccessful = loadSuccessful;
-    }
-
-    public void saveWorld(Grid world){
+    public static void saveWorld(Grid world){
 
         File file = new File("./other/save");
         file.getParentFile().mkdirs();
@@ -34,7 +26,7 @@ public class BoardPersistance {
         }
     }
 
-    public Grid loadWorld(){
+    public static Grid loadWorld(){
         Grid world = null;
         CellState cellState;
         String[] row;
@@ -58,12 +50,12 @@ public class BoardPersistance {
                 currentRow++;
             }
 
-            this.loadSuccessful = true;
+            loadSuccessful = true;
 
         }
         catch (FileNotFoundException e){
             System.out.println("Error, unable to load file. Load failed!");
-            this.loadSuccessful = false;
+            loadSuccessful = false;
         }
 
         return world;
