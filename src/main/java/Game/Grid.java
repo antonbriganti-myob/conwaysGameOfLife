@@ -56,25 +56,13 @@ public class Grid {
 
     public int findAliveNeighbours(int cellRow, int cellColumn){
         int count = 0;
-        GridCoordinates wrapAroundCoord;
-        boolean cellIsAlive;
 
         for(int row = cellRow-1; row<=cellRow+1; row++){
             for(int col = cellColumn-1; col<=cellColumn+1; col++){
                 if (!isSameCell(cellRow, cellColumn, row, col)){
-                    if(inRange(row, col)){
-                        cellIsAlive = checkIfCellIsCurrentlyAlive(row, col);
-
-                    }
-                    else{
-                        wrapAroundCoord = determineWrapAroundCoordinate(row, col);
-                        cellIsAlive = checkIfCellIsCurrentlyAlive(wrapAroundCoord);
-                    }
-
-                    if(cellIsAlive){
+                    if(isCurrentCellAlive(row, col)){
                         count++;
                     }
-
                 }
             }
         }
@@ -82,16 +70,24 @@ public class Grid {
     }
 
     boolean isSameCell(int cellRow, int cellColumn, int row, int col) {
-        return row == cellRow & col==cellColumn;
+        return row == cellRow && col==cellColumn;
     }
 
-    public boolean checkIfCellIsCurrentlyAlive(int row, int col) {
-        return grid.get(row).get(col).isAlive();
+    public boolean isCurrentCellAlive(int row, int col) {
+        boolean cellIsAlive;
+
+        if(inRange(row, col)){
+            cellIsAlive = grid.get(row).get(col).isAlive();
+
+        }
+        else{
+            GridCoordinates wrapAroundCoord = determineWrapAroundCoordinate(row, col);
+            cellIsAlive = grid.get(wrapAroundCoord.row).get(wrapAroundCoord.col).isAlive();
+        }
+
+        return cellIsAlive;
     }
 
-    boolean checkIfCellIsCurrentlyAlive(GridCoordinates coordinates) {
-        return checkIfCellIsCurrentlyAlive(coordinates.getRow(), coordinates.getCol());
-    }
 
     public void setCellState(int row, int column, CellState nextState){
         if (inRange(row, column)){
