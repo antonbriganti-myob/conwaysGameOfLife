@@ -45,7 +45,7 @@ public class ConsoleInputOutput implements UserInputOutput {
         int col = 0;
 
         while(!validCoordinate){
-            System.out.println("\nEnter coordinate as per the following: row,col (e.g. 6,7)");
+            System.out.println("Enter coordinate as per the following: row,col (e.g. 6,7)");
             System.out.println("x's valid values are between 0 and " + (rowSize-1));
             System.out.println("y's valid values are between 0 and " + (colSize-1));
 
@@ -85,7 +85,7 @@ public class ConsoleInputOutput implements UserInputOutput {
 
         }
 
-        return input.equals("alive") ? CellState.ALIVE : CellState.DEAD;
+        return CellState.valueOf(input.toUpperCase());
     }
 
     @Override

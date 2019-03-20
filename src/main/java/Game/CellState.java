@@ -1,14 +1,17 @@
 package Game;
 
 public enum CellState{
-    ALIVE {
-        public String toString() {
-            return "alive";
-        }
-    },
-    DEAD {
-        public String toString() {
-            return "dead";
-        }
+    ALIVE("x"),
+    DEAD(".");
+
+    private final String value;
+
+    CellState(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
     }
 }

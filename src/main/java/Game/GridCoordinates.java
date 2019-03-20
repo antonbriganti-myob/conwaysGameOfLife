@@ -18,4 +18,8 @@ public class GridCoordinates {
         return col;
     }
 
+    @Override
+    public String toString() {
+        return "(" + row + "," + col + ")";
+    }
 }
