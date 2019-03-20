@@ -60,7 +60,7 @@ public class Grid {
         for(int row = cellRow-1; row<=cellRow+1; row++){
             for(int col = cellColumn-1; col<=cellColumn+1; col++){
                 if (!isSameCell(cellRow, cellColumn, row, col)){
-                    if(isCurrentCellAlive(row, col)){
+                    if(isCellAlive(row, col)){
                         count++;
                     }
                 }
@@ -73,7 +73,7 @@ public class Grid {
         return row == cellRow && col==cellColumn;
     }
 
-    public boolean isCurrentCellAlive(int row, int col) {
+    public boolean isCellAlive(int row, int col) {
         boolean cellIsAlive;
 
         if(inRange(row, col)){
