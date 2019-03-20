@@ -1,4 +1,4 @@
-package Game;
+package Cell;
 
 public enum CellState{
     ALIVE("x"),

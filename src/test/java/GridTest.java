@@ -1,4 +1,4 @@
-import Game.CellState;
+import Cell.CellState;
 import Game.Grid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

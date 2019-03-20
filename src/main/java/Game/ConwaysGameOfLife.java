@@ -1,5 +1,6 @@
 package Game;
 
+import Cell.CellState;
 import IO.UserInputOutput;
 
 import java.util.Random;
@@ -19,7 +20,7 @@ public class ConwaysGameOfLife {
             world = BoardPersistance.loadWorld();
         }
 
-        if (BoardPersistance.loadSuccessful)
+        if (!BoardPersistance.loadSuccessful)
         {
             onLoadUnsuccessful();
         }

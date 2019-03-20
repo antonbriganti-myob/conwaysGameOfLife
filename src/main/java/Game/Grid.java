@@ -1,5 +1,8 @@
 package Game;
 
+import Cell.Cell;
+import Cell.CellState;
+
 import java.util.ArrayList;
 import java.util.List;
 

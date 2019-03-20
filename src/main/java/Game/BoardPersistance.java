@@ -1,5 +1,7 @@
 package Game;
 
+import Cell.CellState;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

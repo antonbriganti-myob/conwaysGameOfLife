@@ -1,6 +1,6 @@
 package IO;
 
-import Game.CellState;
+import Cell.CellState;
 import Game.GridCoordinates;
 
 public interface UserInputOutput {

@@ -1,4 +1,4 @@
-package Game;
+package Cell;
 
 public class Cell {
     private CellState currentState;
@@ -35,7 +35,7 @@ public class Cell {
         return nextState;
     }
 
-    boolean isAlive(){
+    public boolean isAlive(){
         return this.currentState.equals(CellState.ALIVE);
     }
 
