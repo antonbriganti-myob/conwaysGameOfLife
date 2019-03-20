@@ -7,13 +7,14 @@ import java.util.Random;
 public class ConwaysGameOfLife {
     private Grid world;
     private UserInputOutput io;
+    BoardPersistance boardPersistance;
 
     public ConwaysGameOfLife(UserInputOutput inputOutputImpl) {
         io = inputOutputImpl;
+        boardPersistance = new BoardPersistance();
     }
 
-    public void playGame(){
-        BoardPersistance boardPersistance = new BoardPersistance();
+    public void startGame(){
         showOpeningMessage();
 
         if (io.getUserBooleanDecision("Would you like to load the state of the world?")){
@@ -22,17 +23,27 @@ public class ConwaysGameOfLife {
 
         if (!boardPersistance.isLoadSuccessful())
         {
-            io.sendOutput("World was not loaded, creating");
-            createWorld();
+            onLoadUnsuccessful();
         }
 
-        printWorld();
+        playGame();
+    }
 
+    void playGame() {
+        printWorld();
         customiseWorld();
         simulateWorld();
-
         if (io.getUserBooleanDecision("Would you like to save the state of the world?")){
             boardPersistance.saveWorld(world);
+        }
+    }
+
+    void onLoadUnsuccessful() {
+        io.sendOutput("World was not loaded, creating");
+        createWorld();
+
+        if (io.getUserBooleanDecision("Would you like to randomise the board?")){
+            randomiseWorld();
         }
     }
 
@@ -49,16 +60,7 @@ public class ConwaysGameOfLife {
     private void createWorld(){
         int rowSize = io.getGridDimension("row");
         int colSize = io.getGridDimension("column");
-
         world = new Grid(rowSize, colSize);
-        printWorld();
-
-        if (io.getUserBooleanDecision("Would you like to randomise the board?")){
-            randomiseWorld();
-            printWorld();
-        }
-
-//        customiseWorld();
     }
 
     private void customiseWorld() {
@@ -98,8 +100,7 @@ public class ConwaysGameOfLife {
 
     }
 
-    private void printWorld(){
-        io.sendOutput("This is the current state of your world:");
+    public void printWorld(){
         io.sendOutput(world.toString());
     }
 }
