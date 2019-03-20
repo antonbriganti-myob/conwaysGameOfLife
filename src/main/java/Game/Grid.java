@@ -27,7 +27,7 @@ public class Grid {
         ArrayList<List<Cell>> grid = new ArrayList<List<Cell>>();
 
         for(int row = 0; row < rowCount; row++)  {
-            grid.add(new ArrayList<Cell>());
+            grid.add(new ArrayList<>());
 
             for(int col = 0; col < columnCount; col++)  {
                 grid.get(row).add(new Cell(CellState.DEAD));
@@ -40,22 +40,17 @@ public class Grid {
     public void updateGrid(){
         int neighbours;
         CellState nextState;
+        ArrayList<List<Cell>> nextGrid = createGrid();
 
         for(int row = 0; row < rowCount; row++)  {
             for(int col = 0; col < columnCount; col++)  {
-
-                grid.get(row).get(col).setTransformed(false);
-
                 neighbours = findAliveNeighbours(row, col);
                 nextState = grid.get(row).get(col).determineNextState(neighbours);
-
-                if (nextState != grid.get(row).get(col).getCurrentState()){
-                    grid.get(row).get(col).updateCurrentState(nextState);
-                    grid.get(row).get(col).setTransformed(true);
-                }
-
+                nextGrid.get(row).get(col).updateCurrentState(nextState);
             }
         }
+
+        grid = nextGrid;
     }
 
 
@@ -66,7 +61,7 @@ public class Grid {
 
         for(int row = cellRow-1; row<=cellRow+1; row++){
             for(int col = cellColumn-1; col<=cellColumn+1; col++){
-                if (!(row == cellRow & col==cellColumn)){
+                if (!isSameCell(cellRow, cellColumn, row, col)){
                     if(inRange(row, col)){
                         cellIsAlive = checkIfCellIsCurrentlyAlive(row, col);
 
@@ -86,21 +81,16 @@ public class Grid {
         return count;
     }
 
+    boolean isSameCell(int cellRow, int cellColumn, int row, int col) {
+        return row == cellRow & col==cellColumn;
+    }
+
     public boolean checkIfCellIsCurrentlyAlive(int row, int col) {
-        return grid.get(row).get(col).isTransformed() != grid.get(row).get(col).isAlive();
+        return grid.get(row).get(col).isAlive();
     }
 
     boolean checkIfCellIsCurrentlyAlive(GridCoordinates coordinates) {
         return checkIfCellIsCurrentlyAlive(coordinates.getRow(), coordinates.getCol());
-    }
-
-    public CellState getCellState(int row, int column){
-        if (inRange(row, column)){
-            return grid.get(row).get(column).getCurrentState();
-        }
-        else{
-            return null;
-        }
     }
 
     public void setCellState(int row, int column, CellState nextState){
@@ -141,10 +131,13 @@ public class Grid {
 
     @Override
     public String toString() {
+        int i;
         StringBuilder result = new StringBuilder();
-        for(int i = 0; i < rowCount; i++)  {
+        for(i = 0; i < rowCount-1; i++)  {
             result.append((grid.get(i))).append("\n");
         }
+        result.append((grid.get(i)));
+
         return result.toString()
                 .replace("[", "")
                 .replace("]", "")

@@ -2,24 +2,9 @@ package Game;
 
 public class Cell {
     private CellState currentState;
-    private boolean transformed;
-
 
     public Cell(CellState currentState) {
         this.currentState = currentState;
-        transformed = false;
-    }
-
-    public CellState getCurrentState() {
-        return currentState;
-    }
-
-    public boolean isTransformed() {
-        return transformed;
-    }
-
-    public void setTransformed(boolean transformed) {
-        this.transformed = transformed;
     }
 
     public void updateCurrentState(CellState nextState) {
@@ -56,6 +41,6 @@ public class Cell {
 
     @Override
     public String toString() {
-        return currentState==CellState.ALIVE ? "x" : ".";
+        return currentState.toString();
     }
 }

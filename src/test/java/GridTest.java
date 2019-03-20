@@ -182,8 +182,8 @@ class GridTest {
         actualGrid.setCellState(2, 3, CellState.ALIVE);
 
         actualGrid.updateGrid();
-        boolean cellIsAlive = !actualGrid.checkIfCellIsCurrentlyAlive(2, 2);
-        System.out.println(actualGrid);
+        boolean cellIsAlive = actualGrid.checkIfCellIsCurrentlyAlive(2, 2);
+
         assertFalse(cellIsAlive);
     }
 
@@ -268,4 +268,40 @@ class GridTest {
         assertEquals(expectedGrid.toString(), actualGrid.toString());
     }
 
+    @Test
+    void Grid_toString_ReturnsExpectedExpectedFormat() {
+        /*
+         *
+         *  . . .
+         *  . . .
+         *  . . .
+         *
+         * */
+
+        actualGrid = new Grid(3,3);
+        String expectedOutput = ". . .\n. . .\n. . .";
+
+        assertEquals(expectedOutput, actualGrid.toString());
+    }
+
+    @Test
+    void Grid_toString_ReturnsExpectedExpectedFormat_AfterUpdate() {
+        /*
+         *
+         *  . . .    x x x
+         *  x x x -> x x x
+         *  . . .    x x x
+         *
+         * */
+
+        actualGrid = new Grid(3,3);
+        actualGrid.setCellState(1,0, CellState.ALIVE);
+        actualGrid.setCellState(1,1, CellState.ALIVE);
+        actualGrid.setCellState(1,2, CellState.ALIVE);
+        actualGrid.updateGrid();
+
+        String expectedOutput = "x x x\nx x x\nx x x";
+
+        assertEquals(expectedOutput, actualGrid.toString());
+    }
 }
