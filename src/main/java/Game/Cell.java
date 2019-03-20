@@ -1,15 +1,4 @@
-enum CellState{
-    ALIVE {
-        public String toString() {
-            return "alive";
-        }
-    },
-    DEAD {
-        public String toString() {
-            return "dead";
-        }
-    }
-}
+package Game;
 
 public class Cell {
     private CellState currentState;
@@ -38,7 +27,7 @@ public class Cell {
     }
 
 
-    CellState determineNextState(int aliveNeighbours){
+    public CellState determineNextState(int aliveNeighbours){
         CellState nextState;
 
         if(isAlive()){

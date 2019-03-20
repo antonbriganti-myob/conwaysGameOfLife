@@ -1,3 +1,5 @@
+package Game;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -84,7 +86,7 @@ public class Grid {
         return count;
     }
 
-    boolean checkIfCellIsCurrentlyAlive(int row, int col) {
+    public boolean checkIfCellIsCurrentlyAlive(int row, int col) {
         return grid.get(row).get(col).isTransformed() != grid.get(row).get(col).isAlive();
     }
 

@@ -1,3 +1,5 @@
+package Validation;
+
 public class InputValidator {
 
     public boolean isValidBooleanAnswer(String input) {

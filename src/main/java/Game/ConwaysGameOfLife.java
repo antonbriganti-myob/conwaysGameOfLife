@@ -1,57 +1,59 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+package Game;
+
+import IO.UserInputOutput;
+
 import java.util.Random;
-import java.util.Scanner;
 
 public class ConwaysGameOfLife {
     private Grid world;
-    private InputParser parser;
+    private UserInputOutput io;
 
-    public ConwaysGameOfLife() {
-        parser = new InputParser();
+    public ConwaysGameOfLife(UserInputOutput inputOutputImpl) {
+        io = inputOutputImpl;
     }
 
-    void playGame(){
+    public void playGame(){
         BoardPersistance boardPersistance = new BoardPersistance();
         showOpeningMessage();
 
-        if (parser.getUserBooleanDecision("Would you like to load the state of the world?")){
+        if (io.getUserBooleanDecision("Would you like to load the state of the world?")){
             world = boardPersistance.loadWorld();
         }
 
         if (!boardPersistance.isLoadSuccessful())
         {
-            System.out.println("World was not loaded, creating");
+            io.sendOutput("World was not loaded, creating");
             createWorld();
         }
+
+        printWorld();
 
         customiseWorld();
         simulateWorld();
 
-        if (parser.getUserBooleanDecision("Would you like to save the state of the world?")){
+        if (io.getUserBooleanDecision("Would you like to save the state of the world?")){
             boardPersistance.saveWorld(world);
         }
     }
 
     private void showOpeningMessage() {
-        System.out.println("=====================================");
-        System.out.println();
-        System.out.println("Let's dive deep into a cellular world");
-        System.out.println("               in...                 ");
-        System.out.println("       CONWAY'S GAME OF LIFE!        ");
-        System.out.println();
-        System.out.println("=====================================");
+        io.sendOutput("=====================================");
+        io.sendOutput("");
+        io.sendOutput("Let's dive deep into a cellular world");
+        io.sendOutput("               in...                 ");
+        io.sendOutput("       CONWAY'S GAME OF LIFE!        ");
+        io.sendOutput("");
+        io.sendOutput("=====================================");
     }
 
     private void createWorld(){
-        int rowSize = parser.getGridDimension("row");
-        int colSize = parser.getGridDimension("column");
+        int rowSize = io.getGridDimension("row");
+        int colSize = io.getGridDimension("column");
 
         world = new Grid(rowSize, colSize);
         printWorld();
 
-        if (parser.getUserBooleanDecision("Would you like to randomise the board?")){
+        if (io.getUserBooleanDecision("Would you like to randomise the board?")){
             randomiseWorld();
             printWorld();
         }
@@ -66,16 +68,16 @@ public class ConwaysGameOfLife {
         int rowSize = world.getRowCount();
         int colSize = world.getColumnCount();
 
-        while(parser.getUserBooleanDecision("Do you want update a cell?")){
-            gridCoord = parser.getGridCoordinates(rowSize, colSize);
-            cellState = parser.getCellStateChoice();
+        while(io.getUserBooleanDecision("Do you want update a cell?")){
+            gridCoord = io.getGridCoordinates(rowSize, colSize);
+            cellState = io.getCellStateChoice();
             world.setCellState(gridCoord, cellState);
             printWorld();
         }
     }
 
     private void simulateWorld(){
-        while(parser.getUserBooleanDecision("Continue simulation?")){
+        while(io.getUserBooleanDecision("Continue simulation?")){
             world.updateGrid();
             printWorld();
         }
@@ -97,7 +99,7 @@ public class ConwaysGameOfLife {
     }
 
     private void printWorld(){
-        System.out.println("This is the current state of your world:");
-        System.out.println(world.toString());
+        io.sendOutput("This is the current state of your world:");
+        io.sendOutput(world.toString());
     }
 }

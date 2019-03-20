@@ -1,3 +1,5 @@
+package Game;
+
 public class GridCoordinates {
     int row;
     int col;
