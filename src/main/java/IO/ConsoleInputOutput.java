@@ -1,10 +1,10 @@
 package IO;
 
-import java.util.Scanner;
-
 import Game.CellState;
 import Game.GridCoordinates;
 import Validation.InputValidator;
+
+import java.util.Scanner;
 
 public class ConsoleInputOutput implements UserInputOutput {
     private Scanner scanner;
