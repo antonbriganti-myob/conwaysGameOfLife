@@ -16,10 +16,10 @@ public class ConwaysGameOfLife {
         showOpeningMessage();
 
         if (io.getUserBooleanDecision("Would you like to load the state of the world?")){
-            world = BoardPersistance.loadWorld();
+            world = BoardPersistence.loadWorld();
         }
 
-        if (!BoardPersistance.loadSuccessful)
+        if (!BoardPersistence.loadSuccessful)
         {
             onLoadUnsuccessful();
         }
@@ -32,7 +32,7 @@ public class ConwaysGameOfLife {
         customiseWorld();
         simulateWorld();
         if (io.getUserBooleanDecision("Would you like to save the state of the world?")){
-            BoardPersistance.saveWorld(world);
+            BoardPersistence.saveWorld(world);
         }
     }
 
