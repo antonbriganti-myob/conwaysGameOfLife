@@ -1,4 +1,4 @@
-package Cell;
+package GameOfLife;
 
 public class Cell {
     private CellState currentState;

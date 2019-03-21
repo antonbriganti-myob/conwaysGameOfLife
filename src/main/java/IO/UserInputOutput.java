@@ -1,7 +1,7 @@
 package IO;
 
-import Cell.CellState;
-import Game.GridCoordinates;
+import GameOfLife.CellState;
+import GameOfLife.GridCoordinates;
 
 public interface UserInputOutput {
 

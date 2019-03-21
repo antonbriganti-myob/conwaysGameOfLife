@@ -1,5 +1,5 @@
-import Cell.CellState;
-import Game.Grid;
+package GameOfLife;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -368,15 +368,15 @@ class GridTest {
     @Test
     void Grid_UpdateGrid_GridUpdates() {
         /*
-        *
-        *   Base          Next
-        *   . . . . .       . . x . .
-        *   . x x x .       . x . x .
-        *   . x x x .  ->   x . . . x
-        *   . x x x .       . x . x .
-        *   . . . . .       . . x . .
-        *
-        * */
+         *
+         *   Base          Next
+         *   . . . . .       . . x . .
+         *   . x x x .       . x . x .
+         *   . x x x .  ->   x . . . x
+         *   . x x x .       . x . x .
+         *   . . . . .       . . x . .
+         *
+         * */
 
         actualGrid.setCellState(1, 1, CellState.ALIVE);
         actualGrid.setCellState(1, 2, CellState.ALIVE);

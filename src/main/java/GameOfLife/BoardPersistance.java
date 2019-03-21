@@ -1,6 +1,4 @@
-package Game;
-
-import Cell.CellState;
+package GameOfLife;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,7 +44,7 @@ public class BoardPersistance {
             while (sc.hasNextLine()){
                 row = sc.nextLine().split(" ");
                 for(int currentCol=0; currentCol < colCount; currentCol++){
-                    cellState = row[currentCol].equals("x") ? CellState.ALIVE : CellState.DEAD;
+                    cellState = CellState.valueOf(row[currentCol]);
                     world.setCellState(currentRow, currentCol, cellState);
                 }
                 currentRow++;

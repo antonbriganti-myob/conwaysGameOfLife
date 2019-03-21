@@ -1,7 +1,4 @@
-package Game;
-
-import Cell.Cell;
-import Cell.CellState;
+package GameOfLife;
 
 import java.util.ArrayList;
 import java.util.List;

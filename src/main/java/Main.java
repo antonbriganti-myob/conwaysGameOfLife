@@ -1,4 +1,4 @@
-import Game.ConwaysGameOfLife;
+import GameOfLife.ConwaysGameOfLife;
 import IO.ConsoleInputOutput;
 
 public class Main {

@@ -1,6 +1,5 @@
-package Game;
+package GameOfLife;
 
-import Cell.CellState;
 import IO.UserInputOutput;
 
 import java.util.Random;

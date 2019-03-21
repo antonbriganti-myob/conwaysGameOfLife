@@ -1,5 +1,5 @@
-import Cell.Cell;
-import Cell.CellState;
+package GameOfLife;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

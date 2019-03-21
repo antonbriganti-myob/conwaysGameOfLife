@@ -1,4 +1,5 @@
-import Validation.InputValidator;
+package Validation;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
