@@ -17,7 +17,7 @@ public class ConsoleInputOutput implements UserInputOutput {
 
     @Override
     public void sendOutput(String output) {
-        System.out.println(output);
+        sendOutput(output);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class ConsoleInputOutput implements UserInputOutput {
             input = scanner.nextLine().toLowerCase();
             validInput = validator.isValidBooleanAnswer(input);
             if (!validInput){
-                System.out.println("That wasn't 'yes' or 'no'.");
+                sendOutput("That wasn't 'yes' or 'no'.");
             }
         }
 
@@ -45,9 +45,9 @@ public class ConsoleInputOutput implements UserInputOutput {
         int col = 0;
 
         while(!validCoordinate){
-            System.out.println("Enter coordinate as per the following: row,col (e.g. 6,7)");
-            System.out.println("x's valid values are between 0 and " + (rowSize-1));
-            System.out.println("y's valid values are between 0 and " + (colSize-1));
+            sendOutput("Enter coordinate as per the following: row,col (e.g. 6,7)");
+            sendOutput("x's valid values are between 0 and " + (rowSize-1));
+            sendOutput("y's valid values are between 0 and " + (colSize-1));
 
             try{
                 String[] input = scanner.nextLine().split(",");
@@ -57,12 +57,12 @@ public class ConsoleInputOutput implements UserInputOutput {
                 validCoordinate = validator.isValidCoordinate(row, col, rowSize, colSize);
 
                 if (!validCoordinate){
-                    System.out.println("Out of range, please enter coordinate again");
+                    sendOutput("Out of range, please enter coordinate again");
                 }
 
             }
             catch (NumberFormatException e){
-                System.out.println("Invalid input, please enter coordinate again.");
+                sendOutput("Invalid input, please enter coordinate again.");
             }
         }
 
@@ -80,7 +80,7 @@ public class ConsoleInputOutput implements UserInputOutput {
             input = scanner.nextLine().toLowerCase();
             validInput = validator.isValidCellStateAnswer(input);
             if (!validInput){
-                System.out.println("Please choose alive or dead");
+                sendOutput("Please choose alive or dead");
             }
 
         }
@@ -102,12 +102,12 @@ public class ConsoleInputOutput implements UserInputOutput {
                 validDimension = validator.isValidDimension(dimension);
 
                 if(!validDimension){
-                    System.out.println("Please enter a number greater than 0");
+                    sendOutput("Please enter a number greater than 0");
                 }
 
             }
             catch (NumberFormatException e){
-                System.out.println("Invalid input, please enter dimension again: ");
+                sendOutput("Invalid input, please enter dimension again: ");
             }
         }
 

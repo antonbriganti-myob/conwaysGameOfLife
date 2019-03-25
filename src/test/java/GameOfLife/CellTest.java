@@ -44,4 +44,6 @@ class CellTest {
         CellState nextState = cell.determineNextState(2);
         assertEquals(nextState, CellState.DEAD);
     }
+
+
 }
