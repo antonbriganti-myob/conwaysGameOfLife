@@ -17,7 +17,7 @@ public class ConsoleInputOutput implements UserInputOutput {
 
     @Override
     public void sendOutput(String output) {
-        sendOutput(output);
+        System.out.println(output);
     }
 
     @Override
