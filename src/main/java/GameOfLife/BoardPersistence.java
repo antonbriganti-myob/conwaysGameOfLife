@@ -9,9 +9,9 @@ public class BoardPersistence {
 
     public static boolean loadSuccessful;
 
-    public static void saveWorld(Grid world){
+    public static void saveWorld(Grid world, String fileLocation){
 
-        File file = new File("./other/save");
+        File file = new File(fileLocation);
         file.getParentFile().mkdirs();
 
         String worldState = world.toString();
@@ -26,13 +26,13 @@ public class BoardPersistence {
         }
     }
 
-    public static Grid loadWorld(){
+    public static Grid loadWorld(String fileLocation){
         Grid world = null;
         CellState cellState;
         String[] row;
         int currentRow = 0;
 
-        File file = new File("./other/save");
+        File file = new File(fileLocation);
 
         try (Scanner sc = new Scanner(file)) {
             String[] rowAndCol = sc.nextLine().split(",");
@@ -44,7 +44,7 @@ public class BoardPersistence {
             while (sc.hasNextLine()){
                 row = sc.nextLine().split(" ");
                 for(int currentCol=0; currentCol < colCount; currentCol++){
-                    cellState = CellState.valueOf(row[currentCol]);
+                    cellState = (row[currentCol].equals(CellState.ALIVE.toString())) ? CellState.ALIVE : CellState.DEAD;
                     world.setCellState(currentRow, currentCol, cellState);
                 }
                 currentRow++;

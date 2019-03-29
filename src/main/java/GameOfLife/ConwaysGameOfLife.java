@@ -7,6 +7,7 @@ import java.util.Random;
 public class ConwaysGameOfLife {
     private Grid world;
     private UserInputOutput io;
+    private String SAVE_FILE_LOCATION = "./other/save";
 
     public ConwaysGameOfLife(UserInputOutput inputOutputImpl) {
         io = inputOutputImpl;
@@ -16,7 +17,7 @@ public class ConwaysGameOfLife {
         showOpeningMessage();
 
         if (io.getUserBooleanDecision("Would you like to load the state of the world?")){
-            world = BoardPersistence.loadWorld();
+            world = BoardPersistence.loadWorld(SAVE_FILE_LOCATION);
         }
 
         if (!BoardPersistence.loadSuccessful)
@@ -32,7 +33,7 @@ public class ConwaysGameOfLife {
         customiseWorld();
         simulateWorld();
         if (io.getUserBooleanDecision("Would you like to save the state of the world?")){
-            BoardPersistence.saveWorld(world);
+            BoardPersistence.saveWorld(world, SAVE_FILE_LOCATION);
         }
     }
 
