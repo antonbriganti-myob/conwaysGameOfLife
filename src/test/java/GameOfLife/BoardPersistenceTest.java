@@ -2,17 +2,14 @@ package GameOfLife;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BoardPersistenceTest {
 
@@ -28,6 +25,7 @@ class BoardPersistenceTest {
 
         assertEquals(expectedResult, actualResult);
 
+        cleanUpAfterSaveTest(testFileLocation);
     }
 
     private String readAllLinesFromFile(String testFileLocation) throws IOException {
@@ -36,6 +34,11 @@ class BoardPersistenceTest {
             actualResult = stream.map(Object::toString).collect(Collectors.joining("\n"));
         }
         return actualResult;
+    }
+
+    private void cleanUpAfterSaveTest(String testFileLocation){
+        File file = new File(testFileLocation);
+        file.delete();
     }
 
     @Test
